@@ -1,0 +1,21 @@
+# Checks on every push and pull request: the Python linter (fails on any finding), the unit tests,
+# and that README.md is exactly what tools/build_readme.py makes from the launchpad's data.
+name: Checks
+on:
+  push: {branches: [main]}
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: pip install ruff==0.16.9 && ruff check .
+      - run: python -m unittest discover -s tests -v
+      - name: README is current with the launchpad
+        run: |
+          git clone -q --depth 1 https://github.com/cyberdudeuk/cyberdudeuk.github.io.git "$RUNNER_TEMP/launchpad"
+          python tools/build_readme.py "$RUNNER_TEMP/launchpad" --check
