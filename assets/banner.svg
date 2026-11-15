@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-labelledby="t d">
+  <title id="t">Public Good Works, by cyberdudeuk</title>
+  <desc id="d">Open tools and guidance for data and AI in public services. Nine areas of work drawn as a constellation.</desc>
+  <style>
+    .bg{fill:#0a1824}
+    .h{font:700 46px "Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#e8eef2}
+    .s{font:400 21px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#c9d6e0}
+    .k{font:600 13px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#a8b9c7;letter-spacing:1.5px}
+    .ln{stroke:#2e4a60;stroke-width:1.2;fill:none}
+    .fl{stroke:#e9a23b;stroke-width:1.6;fill:none;stroke-dasharray:4 7;animation:flow 6s linear infinite}
+    .n{animation:pulse 4s ease-in-out infinite}
+    .st{fill:#fff;animation:tw 5s ease-in-out infinite}
+    @keyframes flow{to{stroke-dashoffset:-110}}
+    @keyframes pulse{50%{opacity:.55}}
+    @keyframes tw{50%{opacity:.15}}
+    @media (prefers-reduced-motion:reduce){.fl,.n,.st{animation:none}}
+  </style>
+  <defs>
+    <radialGradient id="g" cx="78%" cy="45%" r="55%"><stop offset="0" stop-color="#4fd1b5" stop-opacity=".18"/><stop offset="1" stop-color="#4fd1b5" stop-opacity="0"/></radialGradient>
+    <linearGradient id="bar" x1="0" x2="1"><stop offset="0" stop-color="#4fd1b5"/><stop offset=".5" stop-color="#8fb3ff"/><stop offset="1" stop-color="#e9a23b"/></linearGradient>
+  </defs>
+  <rect class="bg" width="1200" height="300" rx="18"/>
+  <rect width="1200" height="300" rx="18" fill="url(#g)"/>
+  <g>
+    <circle class="st" cx="620" cy="40" r="1.2"/><circle class="st" cx="700" cy="250" r="1" style="animation-delay:1.2s"/>
+    <circle class="st" cx="1150" cy="60" r="1.4" style="animation-delay:2.1s"/><circle class="st" cx="1110" cy="260" r="1" style="animation-delay:.6s"/>
+    <circle class="st" cx="560" cy="220" r=".9" style="animation-delay:3s"/><circle class="st" cx="1180" cy="170" r="1.1" style="animation-delay:1.7s"/>
+  </g>
+  <!-- Constellation: nine areas of work around a hub, same order and colours as cyberdudeuk.github.io -->
+  <g transform="translate(905 150)">
+    <circle r="118" class="ln" stroke-dasharray="2 6"/>
+    <g class="ln">
+      <line x2="0" y2="-110"/><line x2="70.7" y2="-84.3"/><line x2="108.3" y2="-19.1"/><line x2="95.3" y2="55"/><line x2="37.6" y2="103.4"/>
+      <line x2="-37.6" y2="103.4"/><line x2="-95.3" y2="55"/><line x2="-108.3" y2="-19.1"/><line x2="-70.7" y2="-84.3"/>
+    </g>
+    <line class="fl" x2="0" y2="-110"/><line class="fl" x2="-108.3" y2="-19.1" style="animation-delay:-3s"/>
+    <circle class="n" cx="0" cy="-110" r="7" fill="#4fd1b5"/>
+    <circle class="n" cx="70.7" cy="-84.3" r="7" fill="#8fb3ff" style="animation-delay:.4s"/>
+    <circle class="n" cx="108.3" cy="-19.1" r="10" fill="#f2b65a" style="animation-delay:.8s"/>
+    <circle class="n" cx="95.3" cy="55" r="7" fill="#6fd69b" style="animation-delay:1.2s"/>
+    <circle class="n" cx="37.6" cy="103.4" r="7" fill="#c9a8f0" style="animation-delay:1.6s"/>
+    <circle class="n" cx="-37.6" cy="103.4" r="7" fill="#ff9f8a" style="animation-delay:2s"/>
+    <circle class="n" cx="-95.3" cy="55" r="7" fill="#f5c451" style="animation-delay:2.4s"/>
+    <circle class="n" cx="-108.3" cy="-19.1" r="7" fill="#7fd3ff" style="animation-delay:2.8s"/>
+    <circle class="n" cx="-70.7" cy="-84.3" r="7" fill="#b8e986" style="animation-delay:3.2s"/>
+    <circle r="40" fill="#12283a" stroke="#4fd1b5" stroke-width="1.5"/>
+    <path d="M-13 -9L13 -9L0 14Z" fill="none" stroke="#4fd1b5" stroke-width="2"/>
+    <circle cx="-13" cy="-9" r="4" fill="#4fd1b5"/><circle cx="13" cy="-9" r="4" fill="#e9a23b"/><circle cx="0" cy="14" r="4" fill="#8fb3ff"/>
+  </g>
+  <text class="k" x="64" y="88">PUBLIC GOOD WORKS · BY CYBERDUDEUK</text>
+  <text class="h" x="64" y="146">Open tools and guidance for</text>
+  <text class="h" x="64" y="200">data and AI in public services</text>
+  <text class="s" x="64" y="244">Standards · playbooks · working tools · public-good projects</text>
+  <rect x="0" y="292" width="1200" height="8" fill="url(#bar)"/>
+</svg>
