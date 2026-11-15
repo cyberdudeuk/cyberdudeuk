@@ -1,0 +1,8 @@
+# Dependabot keeps the pinned GitHub Actions up to date: one pull request a week, checked by CI before merging.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule: {interval: weekly, day: monday, time: "05:53", timezone: Europe/London}
+    labels: [dependencies]
+    commit-message: {prefix: "deps"}
