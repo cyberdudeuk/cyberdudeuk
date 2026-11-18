@@ -15,6 +15,7 @@ CHECK = '--check' in sys.argv
 LAUNCHPAD = 'https://cyberdudeuk.github.io/'
 CONTACT = 'https://github.com/cyberdudeuk/cyberdudeuk.github.io/issues/new?template=contact.yml'
 ORCID = 'https://orcid.org/0009-0000-5880-7219'
+DEV = 'https://dev.to/cyberdudeuk'
 
 
 def load():
@@ -69,6 +70,7 @@ def readme():
 <p align="center">
 <a href="{LAUNCHPAD}"><img alt="Launchpad: {owner['site_name']}" src="https://img.shields.io/badge/launchpad-{owner['site_name'].replace(' ', '_')}-0b6e61?style=for-the-badge"></a>
 <a href="{ORCID}"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
+<a href="{DEV}"><img alt="DEV Community: @cyberdudeuk" src="https://img.shields.io/badge/DEV-@cyberdudeuk-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white"></a>
 <a href="#projects"><img alt="{len(d['projects'])} public projects, {live} with a live site" src="https://img.shields.io/badge/projects-{len(d['projects'])}_public_·_{live}_live-1d70b8?style=for-the-badge"></a>
 </p>
 

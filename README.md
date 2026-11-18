@@ -4,6 +4,7 @@
 <p align="center">
 <a href="https://cyberdudeuk.github.io/"><img alt="Launchpad: Public Good Works" src="https://img.shields.io/badge/launchpad-Public_Good_Works-0b6e61?style=for-the-badge"></a>
 <a href="https://orcid.org/0009-0000-5880-7219"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
+<a href="https://dev.to/cyberdudeuk"><img alt="DEV Community: @cyberdudeuk" src="https://img.shields.io/badge/DEV-@cyberdudeuk-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white"></a>
 <a href="#projects"><img alt="10 public projects, 10 with a live site" src="https://img.shields.io/badge/projects-10_public_·_10_live-1d70b8?style=for-the-badge"></a>
 </p>
 

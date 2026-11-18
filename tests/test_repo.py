@@ -3,6 +3,8 @@
 P-01: the repository had no CI at all, so a lint finding or a stale README could merge unnoticed.
 P-02: the "projects" badge was a bare <img>, so clicking it on the profile opened the raw SVG on
       camo.githubusercontent.com instead of going anywhere useful (18 Nov 2026).
+P-04: the DEV Community profile was listed in the GitHub sidebar but not on the profile README, so the
+      two drifted apart; the README must link every public profile the sidebar does (18 Nov 2026).
 P-03: a project newly merged into the launchpad has no preview image yet; the README must not show a broken image.
 """
 import re
@@ -25,6 +27,12 @@ class Checks(unittest.TestCase):
     def test_every_workflow_declares_read_only_default_permissions(self):
         for f in WF.glob('*.yml'):
             self.assertIn('permissions:\n  contents: read', f.read_text(encoding='utf-8'), f.name)
+
+    def test_readme_links_each_public_profile(self):
+        # P-04: profiles shown in the GitHub sidebar must also be linked from the README badges.
+        readme = (ROOT / 'README.md').read_text(encoding='utf-8')
+        for url in ('https://orcid.org/0009-0000-5880-7219', 'https://dev.to/cyberdudeuk'):
+            self.assertIn(f'<a href="{url}">', readme, url)
 
     def test_every_readme_image_is_wrapped_in_a_link(self):
         # P-02: GitHub links any unwrapped <img> to its own camo-proxied source, so an unlinked badge

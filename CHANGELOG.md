@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 18 November 2026: DEV Community profile linked
+
+- A DEV badge (https://dev.to/cyberdudeuk) now sits beside the ORCID badge, matching the DEV link added to the
+  GitHub sidebar. A new check fails if the README stops linking any public profile the sidebar shows (defect P-04).
+
 ## 18 November 2026: the profile follows the launchpad by itself
 
 - A daily refresh routine rebuilds README.md from the launchpad's project list and, if it changed, commits it after
