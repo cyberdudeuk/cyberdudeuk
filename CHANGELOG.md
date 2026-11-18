@@ -1,5 +1,12 @@
 # Changelog
 
+## 18 November 2026
+
+- The "projects" badge now links to the Projects section, and the colophon barcode links to the launchpad. Both were bare
+  images, so clicking either opened the raw SVG on GitHub's image proxy. A new check fails if any image in the README is
+  not inside a link (defect P-02).
+- Python bytecode (`__pycache__`) is no longer tracked; a `.gitignore` keeps it out.
+
 ## 15 November 2026
 
 - Checks run on every push and pull request: the Ruff linter (fails on any finding), the unit tests, and a check that
