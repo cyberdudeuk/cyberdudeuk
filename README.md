@@ -4,7 +4,7 @@
 <p align="center">
 <a href="https://cyberdudeuk.github.io/"><img alt="Launchpad: Public Good Works" src="https://img.shields.io/badge/launchpad-Public_Good_Works-0b6e61?style=for-the-badge"></a>
 <a href="https://orcid.org/0009-0000-5880-7219"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
-<img alt="10 public projects, 10 with a live site" src="https://img.shields.io/badge/projects-10_public_·_10_live-1d70b8?style=for-the-badge">
+<a href="#projects"><img alt="10 public projects, 10 with a live site" src="https://img.shields.io/badge/projects-10_public_·_10_live-1d70b8?style=for-the-badge"></a>
 </p>
 
 Projects from the cyberdudeuk GitHub account, most of them about data and AI in UK public services, plus some personal work. Each project is built in the open, checked automatically before it is published, and says plainly what it is and is not.
@@ -58,5 +58,5 @@ Projects from the cyberdudeuk GitHub account, most of them about data and AI in 
 </details>
 
 <p align="center"><a href="https://cyberdudeuk.github.io/"><img src="assets/qr.svg" alt="QR code for https://cyberdudeuk.github.io/" width="96"></a>
-&nbsp;&nbsp;<img src="assets/barcode.svg" alt="Barcode encoding https://cyberdudeuk.github.io/" height="72"><br>
+&nbsp;&nbsp;<a href="https://cyberdudeuk.github.io/"><img src="assets/barcode.svg" alt="Barcode encoding https://cyberdudeuk.github.io/" height="72"></a><br>
 <sub>Public Good Works · https://cyberdudeuk.github.io/ · register v1.3.3, updated 2026-11-15</sub></p>

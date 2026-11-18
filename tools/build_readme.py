@@ -66,7 +66,7 @@ def readme():
 <p align="center">
 <a href="{LAUNCHPAD}"><img alt="Launchpad: {owner['site_name']}" src="https://img.shields.io/badge/launchpad-{owner['site_name'].replace(' ', '_')}-0b6e61?style=for-the-badge"></a>
 <a href="{ORCID}"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
-<img alt="{len(d['projects'])} public projects, {live} with a live site" src="https://img.shields.io/badge/projects-{len(d['projects'])}_public_·_{live}_live-1d70b8?style=for-the-badge">
+<a href="#projects"><img alt="{len(d['projects'])} public projects, {live} with a live site" src="https://img.shields.io/badge/projects-{len(d['projects'])}_public_·_{live}_live-1d70b8?style=for-the-badge"></a>
 </p>
 
 {owner["about"]}
@@ -110,7 +110,7 @@ def readme():
 </details>
 
 <p align="center"><a href="{LAUNCHPAD}"><img src="assets/qr.svg" alt="QR code for {LAUNCHPAD}" width="96"></a>
-&nbsp;&nbsp;<img src="assets/barcode.svg" alt="Barcode encoding {LAUNCHPAD}" height="72"><br>
+&nbsp;&nbsp;<a href="{LAUNCHPAD}"><img src="assets/barcode.svg" alt="Barcode encoding {LAUNCHPAD}" height="72"></a><br>
 <sub>{owner["site_name"]} · {LAUNCHPAD} · register v{d["version"]}, updated {d["updated"]}</sub></p>
 '''
 
