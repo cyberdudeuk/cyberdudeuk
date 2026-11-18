@@ -1,0 +1,38 @@
+# Keeps README.md in step with the launchpad (tier 1: changes derived output only, after every check passes).
+# In plain English: once a day, and on request, it rebuilds README.md from the launchpad's project list. If nothing
+# changed it stops. If the list changed (a person merged new or updated cards there), it runs the linter, the tests
+# and the README check, then commits the rebuilt README.md to main. One revert undoes it. It edits nothing else.
+# Kill switch: set the repository variable AUTOMATION to "off" and it reports what it would change and commits nothing.
+name: Refresh README
+on:
+  schedule: [{cron: '7 7 * * *'}]   # every day 07:07 UTC, after the launchpad's discovery routine
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: {group: refresh-readme, cancel-in-progress: false}
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write   # commit README.md to main, and nothing else
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: pip install ruff==0.16.9
+      - name: Rebuild README.md from the launchpad
+        run: |
+          git clone -q --depth 1 https://github.com/cyberdudeuk/cyberdudeuk.github.io.git "$RUNNER_TEMP/launchpad"
+          python tools/build_readme.py "$RUNNER_TEMP/launchpad"
+      - name: Commit only if it changed and every check passes
+        env:
+          AUTOMATION: ${{ vars.AUTOMATION }}
+        run: |
+          if git diff --quiet -- README.md; then echo "README.md is already current"; exit 0; fi
+          git diff --stat -- README.md
+          ruff check .
+          python -m unittest discover -s tests -v
+          python tools/build_readme.py "$RUNNER_TEMP/launchpad" --check
+          if [ "$AUTOMATION" = "off" ]; then echo "AUTOMATION is off: would commit the README.md above"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "README: rebuilt from the launchpad's project list (refresh routine)" -- README.md
+          git push -q origin HEAD:main

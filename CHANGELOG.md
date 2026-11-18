@@ -1,5 +1,13 @@
 # Changelog
 
+
+## 18 November 2026: the profile follows the launchpad by itself
+
+- A daily refresh routine rebuilds README.md from the launchpad's project list and, if it changed, commits it after
+  the linter, the tests and the README check pass. It commits README.md and nothing else; the AUTOMATION variable
+  set to "off" stops it. New projects reach the profile once a person merges them on the launchpad.
+- A project with no preview image yet is shown as a linked name and summary, never a broken image (P-03).
+
 ## 18 November 2026
 
 - The "projects" badge now links to the Projects section, and the colophon barcode links to the launchpad. Both were bare
