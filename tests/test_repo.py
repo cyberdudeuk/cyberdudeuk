@@ -3,8 +3,10 @@
 P-01: the repository had no CI at all, so a lint finding or a stale README could merge unnoticed.
 P-02: the "projects" badge was a bare <img>, so clicking it on the profile opened the raw SVG on
       camo.githubusercontent.com instead of going anywhere useful (18 Nov 2026).
+P-03: a project newly merged into the launchpad has no preview image yet; the README must not show a broken image.
 """
 import re
+import sys
 import unittest
 from pathlib import Path
 
@@ -30,6 +32,26 @@ class Checks(unittest.TestCase):
         readme = (ROOT / 'README.md').read_text(encoding='utf-8')
         unlinked = re.sub(r'<a\s[^>]*href="[^"]+"[^>]*>\s*<img\b[^>]*>\s*</a>', '', readme)
         self.assertEqual(re.findall(r'<img\b[^>]*>', unlinked), [], 'every <img> needs an <a href> around it')
+
+    def test_refresh_routine_commits_only_the_readme_after_checks_and_honours_the_kill_switch(self):
+        # 18 Nov 2026: the owner asked for the profile to follow new projects without retyping them.
+        wf = (WF / 'refresh.yml').read_text(encoding='utf-8')
+        run = wf.split('Commit only if it changed')[1]
+        for step in ('ruff check .', 'unittest discover', '--check', 'AUTOMATION" = "off"'):
+            self.assertLess(run.index(step), run.index('git -c user.name'), f'{step} must run before the commit')
+        self.assertIn('-- README.md', run)                 # commits README.md and nothing else
+        self.assertIn('contents: write   # commit README.md', wf)
+
+    def test_new_project_without_a_preview_gets_no_broken_image(self):
+        # P-03: a project merged into the launchpad before its preview image exists must not show a broken image.
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import build_readme
+        p = {'id': 'no-such-preview', 'name': 'New one', 'summary': 'Does a thing.', 'site': '',
+             'repo': 'https://github.com/cyberdudeuk/no-such-preview', 'status': 'Experiment', 'licence': 'MIT'}
+        cell = build_readme.card(p)
+        self.assertNotIn('<img', cell)
+        self.assertIn('New one', cell)
+        self.assertIn('<img', build_readme.card(dict(p, id='dcat-ap-uk')))  # negative: an existing preview is still used
 
     def test_code_scanning_and_security_policy_exist(self):
         self.assertTrue((WF / 'codeql.yml').exists())

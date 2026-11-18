@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = Path(sys.argv[1])
+SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / 'cyberdudeuk.github.io'
 CHECK = '--check' in sys.argv
 LAUNCHPAD = 'https://cyberdudeuk.github.io/'
 CONTACT = 'https://github.com/cyberdudeuk/cyberdudeuk.github.io/issues/new?template=contact.yml'
@@ -27,8 +27,11 @@ def card(p):
     """One gallery cell: the project's preview card, linked to its site (or repository when it has no site)."""
     href = p['site'] or p['repo']
     img = f'assets/previews/{p["id"]}.jpg'
+    meta = f'<br><sub><a href="{p["repo"]}">Repository</a> · {p["status"]} · {p["licence"]}</sub>'
+    if not (ROOT / img).exists():  # P-03: a newly listed project has no preview yet; never publish a broken image
+        return f'<a href="{href}"><strong>{p["name"]}</strong></a><br>{p["summary"]}{meta}'
     return (f'<a href="{href}"><img src="{img}" alt="{p["name"]}: {p["summary"].split(". ")[0].rstrip(".")}." width="100%"></a>'
-            f'<br><sub><a href="{p["repo"]}">Repository</a> · {p["status"]} · {p["licence"]}</sub>')
+            + meta)
 
 
 def gallery(d):
