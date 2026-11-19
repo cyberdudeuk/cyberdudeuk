@@ -5,6 +5,9 @@
 <a href="https://cyberdudeuk.github.io/"><img alt="Launchpad: Public Good Works" src="https://img.shields.io/badge/launchpad-Public_Good_Works-0b6e61?style=for-the-badge"></a>
 <a href="https://orcid.org/0009-0000-5880-7219"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
 <a href="https://dev.to/cyberdudeuk"><img alt="DEV Community: @cyberdudeuk" src="https://img.shields.io/badge/DEV-@cyberdudeuk-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white"></a>
+<a href="https://www.linkedin.com/in/emanuel"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-profile-0a66c2?style=for-the-badge"></a>
+<a href="https://cyberdudeuk.github.io/#notes"><img alt="Notes and feed" src="https://img.shields.io/badge/notes-read_and_subscribe-b35c00?style=for-the-badge"></a>
+<a href="https://github.com/users/cyberdudeuk/projects/4"><img alt="Project board: status of every project" src="https://img.shields.io/badge/board-project_status-6f42c1?style=for-the-badge"></a>
 <a href="#projects"><img alt="10 public projects, 10 with a live site" src="https://img.shields.io/badge/projects-10_public_·_10_live-1d70b8?style=for-the-badge"></a>
 </p>
 
@@ -15,7 +18,20 @@ Projects from the cyberdudeuk GitHub account, most of them about data and AI in 
 
 **Areas of work:** AI governance (1) · Data standards and metadata (1) · Data management and quality (2) · Finding and reusing code (1) · Knowledge mapping (1) · Skills and development (1) · Community and heritage (1) · Youth voice (1) · Experiments (1)
 
-## Where to start
+## Start here
+
+**[GitHub Repos Asset Catalogue](https://cyberdudeuk.github.io/github-repos-asset-catalogue/)** is the project to try first. Before you build it, look for it. Every UK public sector code project on GitHub in one place, explained in plain English, so you can find work that already exists and decide whether to reuse it.
+
+[Open it](https://cyberdudeuk.github.io/github-repos-asset-catalogue/) · [Repository](https://github.com/cyberdudeuk/github-repos-asset-catalogue) · Working tool
+
+## What's new
+
+<table>
+<tr><th width="40%">Latest releases</th><th width="35%">Latest notes</th><th width="25%">Working on</th></tr>
+<tr><td valign="top"><a href="https://github.com/cyberdudeuk/uk-youth-parliament-amplify/releases/tag/kit-2026-11-17">UK Youth Parliament: Amplify portal Campaign kit: graphics pack (kit-2026-11-17)</a> · 2026-11-17<br><a href="https://github.com/cyberdudeuk/ai-capability-governance/releases/tag/v3.1.0">AI Capability Governance and Implementation 3.1.0</a> · 2026-11-15<br><a href="https://github.com/cyberdudeuk/dq-commons/releases/tag/v2.15.0">Public Sector Data Quality Commons 2.15.0</a> · 2026-11-15<br><a href="https://github.com/cyberdudeuk/github-repos-asset-catalogue/releases/tag/v7.21.0">GitHub Repos Asset Catalogue v7.21.0</a> · 2026-11-15<br><a href="https://github.com/cyberdudeuk/knowledge-web/releases/tag/v3.8.0">The Knowledge Web 3.8.0</a> · 2026-11-15</td><td valign="top"><a href="https://cyberdudeuk.github.io/notes/one-home-for-my-open-work.html">One home for my open work, and where else to find it</a> · 2026-11-19<br><a href="https://dev.to/cyberdudeuk/making-a-portfolio-of-open-public-sector-projects-that-keeps-itself-honest-3l4a">Making a portfolio of open public-sector projects that keeps itself honest</a> · 2026-11-18<br><a href="https://cyberdudeuk.github.io/feed.xml">Feed</a> · <a href="https://cyberdudeuk.github.io/#notes">All notes</a></td><td valign="top"><a href="https://github.com/users/cyberdudeuk/projects/4">Public Good Works board</a>: every project with its status, set from its activity, and a weekly status update.</td></tr>
+</table>
+
+## Where else to start
 
 | If you are… | Start with |
 |---|---|
@@ -60,4 +76,4 @@ Projects from the cyberdudeuk GitHub account, most of them about data and AI in 
 
 <p align="center"><a href="https://cyberdudeuk.github.io/"><img src="assets/qr.svg" alt="QR code for https://cyberdudeuk.github.io/" width="96"></a>
 &nbsp;&nbsp;<a href="https://cyberdudeuk.github.io/"><img src="assets/barcode.svg" alt="Barcode encoding https://cyberdudeuk.github.io/" height="72"></a><br>
-<sub>Public Good Works · https://cyberdudeuk.github.io/ · register v1.3.3, updated 2026-11-15</sub></p>
+<sub>Public Good Works · https://cyberdudeuk.github.io/ · last change 2026-11-19 · register v1.3.3</sub></p>
