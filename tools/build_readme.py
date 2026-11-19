@@ -16,12 +16,61 @@ LAUNCHPAD = 'https://cyberdudeuk.github.io/'
 CONTACT = 'https://github.com/cyberdudeuk/cyberdudeuk.github.io/issues/new?template=contact.yml'
 ORCID = 'https://orcid.org/0009-0000-5880-7219'
 DEV = 'https://dev.to/cyberdudeuk'
+LINKEDIN = 'https://www.linkedin.com/in/emanuel'
+NOTES = LAUNCHPAD + '#notes'
+FEED = LAUNCHPAD + 'feed.xml'
+BOARD = 'https://github.com/users/cyberdudeuk/projects/4'
+FLAGSHIP = 'github-repos-asset-catalogue'  # the one project to meet first; change the id to change the flagship
 
 
 def load():
     d = json.loads((SITE / 'data' / 'projects.json').read_text(encoding='utf-8'))
     owner = json.loads((SITE / 'data' / 'owner.json').read_text(encoding='utf-8'))
     return d, owner
+
+
+def activity():
+    """data/activity.json, written by tools/fetch_activity.py; empty when it has not run yet."""
+    f = ROOT / 'data' / 'activity.json'
+    return json.loads(f.read_text(encoding='utf-8')) if f.exists() else {}
+
+
+def notes(site, n=3):
+    """The latest notes from the launchpad's data/posts.json, newest first, each linked to where it is published."""
+    f = site / 'data' / 'posts.json'
+    if not f.exists():
+        return []
+    posts = sorted(json.loads(f.read_text(encoding='utf-8'))['posts'], key=lambda x: x['date'], reverse=True)
+    return [(x['title'], x.get('home') or f'{LAUNCHPAD}notes/{x["id"]}.html', x['date']) for x in posts[:n]]
+
+
+def flagship(d):
+    p = next((x for x in d['projects'] if x['id'] == FLAGSHIP), None)
+    if not p:
+        return ''
+    href = p['site'] or p['repo']
+    return (f'## Start here\n\n**[{p["name"]}]({href})** is the project to try first. {p["summary"]}\n\n'
+            f'[Open it]({href}) · [Repository]({p["repo"]}) · {p["status"]}\n')
+
+
+def whats_new(act, site):
+    """Releases, notes and the board side by side: what changed lately, rebuilt daily (P-06)."""
+    rel = '<br>'.join(f'<a href="{r["url"]}">{r["project"]} {r["release"]}</a> · {r["date"]}'
+                      for r in act.get('releases', [])[:5]) or 'No releases yet.'
+    nts = '<br>'.join(f'<a href="{u}">{t}</a> · {dt}' for t, u, dt in notes(site)) or 'No notes yet.'
+    board = (f'<a href="{BOARD}">Public Good Works board</a>: every project with its status, set from its '
+             'activity, and a weekly status update.')
+    return ('## What\'s new\n\n<table>\n<tr><th width="40%">Latest releases</th><th width="35%">Latest notes</th>'
+            '<th width="25%">Working on</th></tr>\n'
+            f'<tr><td valign="top">{rel}</td><td valign="top">{nts}<br><a href="{FEED}">Feed</a> · '
+            f'<a href="{NOTES}">All notes</a></td><td valign="top">{board}</td></tr>\n</table>\n')
+
+
+def colophon_date(d, act):
+    """P-05: the colophon showed the register's own date (2026-11-15) while projects changed daily, so the page looked
+    stale. It now shows the last change by a person to any project, falling back to the register date."""
+    last = (act.get('last_change') or {}).get('date')
+    return f'last change {last}' if last else f'updated {d["updated"]}'
 
 
 def card(p):
@@ -63,6 +112,7 @@ def areas(d):
 
 def readme():
     d, owner = load()
+    act = activity()
     live = sum(1 for p in d['projects'] if p.get('site'))
     return f'''<!-- Built by tools/build_readme.py from {LAUNCHPAD}data/projects.json. Edit the data, not this file. -->
 <a href="{LAUNCHPAD}"><img src="assets/banner.svg" alt="{owner["site_name"]}, by {owner["display_name"]}: {owner["tagline"]}." width="100%"></a>
@@ -71,6 +121,9 @@ def readme():
 <a href="{LAUNCHPAD}"><img alt="Launchpad: {owner['site_name']}" src="https://img.shields.io/badge/launchpad-{owner['site_name'].replace(' ', '_')}-0b6e61?style=for-the-badge"></a>
 <a href="{ORCID}"><img alt="ORCID iD" src="https://img.shields.io/badge/ORCID-0009--0000--5880--7219-a6ce39?style=for-the-badge&logo=orcid&logoColor=white"></a>
 <a href="{DEV}"><img alt="DEV Community: @cyberdudeuk" src="https://img.shields.io/badge/DEV-@cyberdudeuk-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white"></a>
+<a href="{LINKEDIN}"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-profile-0a66c2?style=for-the-badge"></a>
+<a href="{NOTES}"><img alt="Notes and feed" src="https://img.shields.io/badge/notes-read_and_subscribe-b35c00?style=for-the-badge"></a>
+<a href="{BOARD}"><img alt="Project board: status of every project" src="https://img.shields.io/badge/board-project_status-6f42c1?style=for-the-badge"></a>
 <a href="#projects"><img alt="{len(d['projects'])} public projects, {live} with a live site" src="https://img.shields.io/badge/projects-{len(d['projects'])}_public_·_{live}_live-1d70b8?style=for-the-badge"></a>
 </p>
 
@@ -81,7 +134,9 @@ def readme():
 
 **Areas of work:** {areas(d)}
 
-## Where to start
+{flagship(d)}
+{whats_new(act, SITE)}
+## Where else to start
 
 {ways_in(d)}
 
@@ -116,7 +171,7 @@ def readme():
 
 <p align="center"><a href="{LAUNCHPAD}"><img src="assets/qr.svg" alt="QR code for {LAUNCHPAD}" width="96"></a>
 &nbsp;&nbsp;<a href="{LAUNCHPAD}"><img src="assets/barcode.svg" alt="Barcode encoding {LAUNCHPAD}" height="72"></a><br>
-<sub>{owner["site_name"]} · {LAUNCHPAD} · register v{d["version"]}, updated {d["updated"]}</sub></p>
+<sub>{owner["site_name"]} · {LAUNCHPAD} · {colophon_date(d, act)} · register v{d["version"]}</sub></p>
 '''
 
 

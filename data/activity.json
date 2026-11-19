@@ -1,0 +1,45 @@
+{
+ "generated": "2026-11-19",
+ "releases": [
+  {
+   "project": "UK Youth Parliament: Amplify portal",
+   "release": "Campaign kit: graphics pack (kit-2026-11-17)",
+   "date": "2026-11-17",
+   "url": "https://github.com/cyberdudeuk/uk-youth-parliament-amplify/releases/tag/kit-2026-11-17"
+  },
+  {
+   "project": "AI Capability Governance and Implementation",
+   "release": "3.1.0",
+   "date": "2026-11-15",
+   "url": "https://github.com/cyberdudeuk/ai-capability-governance/releases/tag/v3.1.0"
+  },
+  {
+   "project": "Public Sector Data Quality Commons",
+   "release": "2.15.0",
+   "date": "2026-11-15",
+   "url": "https://github.com/cyberdudeuk/dq-commons/releases/tag/v2.15.0"
+  },
+  {
+   "project": "GitHub Repos Asset Catalogue",
+   "release": "v7.21.0",
+   "date": "2026-11-15",
+   "url": "https://github.com/cyberdudeuk/github-repos-asset-catalogue/releases/tag/v7.21.0"
+  },
+  {
+   "project": "The Knowledge Web",
+   "release": "3.8.0",
+   "date": "2026-11-15",
+   "url": "https://github.com/cyberdudeuk/knowledge-web/releases/tag/v3.8.0"
+  },
+  {
+   "project": "Plainspoken",
+   "release": "2.6.0",
+   "date": "2026-11-15",
+   "url": "https://github.com/cyberdudeuk/plainspoken/releases/tag/v2.6.0"
+  }
+ ],
+ "last_change": {
+  "project": "Public Good Works launchpad",
+  "date": "2026-11-19"
+ }
+}

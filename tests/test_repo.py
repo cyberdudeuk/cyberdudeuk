@@ -6,7 +6,13 @@ P-02: the "projects" badge was a bare <img>, so clicking it on the profile opene
 P-04: the DEV Community profile was listed in the GitHub sidebar but not on the profile README, so the
       two drifted apart; the README must link every public profile the sidebar does (18 Nov 2026).
 P-03: a project newly merged into the launchpad has no preview image yet; the README must not show a broken image.
+P-05: the colophon said "updated 2026-11-15" (the register's own date) while projects changed every day, so the page
+      looked stale. It must show the last change by a person to any project (19 Nov 2026).
+P-06: the profile linked neither the notes nor the project board, so visitors could not see what was new or under way;
+      LinkedIn and the Zenodo community were missing from the badges too (19 Nov 2026).
+P-07: release titles repeat the project name ("Plainspoken 2.6.0"), which read twice in "What's new" (19 Nov 2026).
 """
+import json
 import re
 import sys
 import unittest
@@ -31,7 +37,8 @@ class Checks(unittest.TestCase):
     def test_readme_links_each_public_profile(self):
         # P-04: profiles shown in the GitHub sidebar must also be linked from the README badges.
         readme = (ROOT / 'README.md').read_text(encoding='utf-8')
-        for url in ('https://orcid.org/0009-0000-5880-7219', 'https://dev.to/cyberdudeuk'):
+        for url in ('https://orcid.org/0009-0000-5880-7219', 'https://dev.to/cyberdudeuk',
+                    'https://www.linkedin.com/in/emanuel'):  # P-06
             self.assertIn(f'<a href="{url}">', readme, url)
 
     def test_every_readme_image_is_wrapped_in_a_link(self):
@@ -47,8 +54,9 @@ class Checks(unittest.TestCase):
         run = wf.split('Commit only if it changed')[1]
         for step in ('ruff check .', 'unittest discover', '--check', 'AUTOMATION" = "off"'):
             self.assertLess(run.index(step), run.index('git -c user.name'), f'{step} must run before the commit')
-        self.assertIn('-- README.md', run)                 # commits README.md and nothing else
+        self.assertIn('-- README.md data/activity.json', run)  # commits these two files and nothing else
         self.assertIn('contents: write   # commit README.md', wf)
+        self.assertLess(wf.index('fetch_activity.py'), wf.index('build_readme.py "$RUNNER_TEMP/launchpad"\n'))
 
     def test_new_project_without_a_preview_gets_no_broken_image(self):
         # P-03: a project merged into the launchpad before its preview image exists must not show a broken image.
@@ -68,3 +76,70 @@ class Checks(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+sys.path.insert(0, str(ROOT / 'tools'))
+import build_readme  # noqa: E402
+import fetch_activity  # noqa: E402
+
+FEED = """<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">{}</feed>"""
+ENTRY = '<entry><title>{t}</title><updated>{d}T10:00:00Z</updated><link href="https://github.com/x/{t}"/>' \
+        '<author><name>{a}</name></author></entry>'
+
+
+def feed(*rows):
+    return FEED.format(''.join(ENTRY.format(t=t, d=d, a=a) for t, d, a in rows))
+
+
+class Activity(unittest.TestCase):
+    PROJECTS = [{'name': 'Plainspoken', 'repo': 'https://github.com/cyberdudeuk/plainspoken'},
+                {'name': 'Other', 'repo': 'https://github.com/cyberdudeuk/other'}]
+
+    def pages(self, url):
+        return {'https://github.com/cyberdudeuk/plainspoken/releases.atom': feed(('Plainspoken 2.6.0', '2026-11-15', 'x')),
+                'https://github.com/cyberdudeuk/plainspoken/commits.atom': feed(('Bump', '2026-11-19', 'dependabot[bot]'),
+                                                                                ('Fix', '2026-11-18', 'cyberdudeuk')),
+                'https://github.com/cyberdudeuk/other/releases.atom': feed(('v1.0.0', '2026-11-10', 'x')),
+                'https://github.com/cyberdudeuk/other/commits.atom': feed(('Add', '2026-11-12', 'cyberdudeuk'))}[url]
+
+    def test_last_change_is_by_a_person_and_releases_are_newest_first(self):
+        a = fetch_activity.collect(self.PROJECTS, fetch=self.pages)
+        self.assertEqual(a['last_change'], {'project': 'Plainspoken', 'date': '2026-11-18'})  # the bot's change ignored
+        self.assertEqual([r['release'] for r in a['releases']], ['2.6.0', 'v1.0.0'])        # P-07: name not repeated
+
+    def test_negative_a_failing_feed_is_skipped_not_fatal(self):
+        def flaky(url):
+            if 'other' in url:
+                raise OSError('timeout')
+            return self.pages(url)
+        a = fetch_activity.collect(self.PROJECTS, fetch=flaky)
+        self.assertEqual(len(a['releases']), 1)
+        self.assertTrue(a['failed'])
+
+    def test_negative_unsafe_inputs_are_refused(self):
+        with self.assertRaises(ValueError):
+            fetch_activity.get('https://evil.example/cyberdudeuk/x')       # only github.com/cyberdudeuk is fetched
+        with self.assertRaises(ValueError):
+            list(fetch_activity.entries('<!DOCTYPE x [<!ENTITY a "b">]><feed/>'))  # no DOCTYPE, so no entity tricks
+        bad = fetch_activity.collect([{'name': 'Bad', 'repo': 'https://github.com/cyberdudeuk/../../x?y'}],
+                                     fetch=lambda u: self.fail('fetched a bad name'))
+        self.assertTrue(bad['failed'])
+
+
+class Readme(unittest.TestCase):
+    README = (ROOT / 'README.md').read_text(encoding='utf-8')
+
+    def test_colophon_shows_the_last_change_not_the_register_date(self):
+        # P-05
+        act = json.loads((ROOT / 'data' / 'activity.json').read_text(encoding='utf-8'))
+        self.assertIn(f'last change {act["last_change"]["date"]}', self.README)
+        self.assertNotRegex(self.README.split('<sub>Public Good Works')[-1], r'updated \d{4}')
+        self.assertEqual(build_readme.colophon_date({'updated': '2026-11-15'}, {}), 'updated 2026-11-15')  # fallback
+
+    def test_profile_links_notes_board_and_shows_whats_new(self):
+        # P-06
+        for url in (build_readme.NOTES, build_readme.FEED, build_readme.BOARD):
+            self.assertIn(url, self.README)
+        self.assertIn("## What's new", self.README)
+        self.assertIn('## Start here', self.README)
+

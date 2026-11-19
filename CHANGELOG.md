@@ -1,6 +1,17 @@
 # Changelog
 
 
+## 19 November 2026: a live front page
+
+- **Start here** names one flagship to try first: the GitHub Repos Asset Catalogue (set by FLAGSHIP in
+  tools/build_readme.py).
+- **What's new** shows the latest release of each project, the latest notes from the launchpad, and a link to the
+  Public Good Works project board with its weekly status update. tools/fetch_activity.py reads each project's public
+  release and commit feeds into data/activity.json; the daily refresh commits it with README.md.
+- The colophon now shows the last change by a person to any project, not the register's own date, which had made the
+  page look stale (P-05). Badges now link LinkedIn, the notes and the board too (P-06). Release names no longer repeat
+  the project name (P-07).
+
 ## 18 November 2026: DEV Community profile linked
 
 - A DEV badge (https://dev.to/cyberdudeuk) now sits beside the ORCID badge, matching the DEV link added to the
