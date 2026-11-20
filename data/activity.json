@@ -1,6 +1,18 @@
 {
- "generated": "2026-11-19",
+ "generated": "2026-11-20",
  "releases": [
+  {
+   "project": "DCAT-AP-UK",
+   "release": "v1.3.0-rc.1",
+   "date": "2026-11-20",
+   "url": "https://github.com/cyberdudeuk/dcat-ap-uk/releases/tag/v1.3.0-rc.1"
+  },
+  {
+   "project": "NDL PubSec MCP",
+   "release": "0.4.0: independent prototype and a rebuilt website",
+   "date": "2026-11-20",
+   "url": "https://github.com/cyberdudeuk/ndl-pubsec-mcp/releases/tag/v0.4.0"
+  },
   {
    "project": "UK Youth Parliament: Amplify portal",
    "release": "Campaign kit: graphics pack (kit-2026-11-17)",
@@ -24,22 +36,10 @@
    "release": "v7.21.0",
    "date": "2026-11-15",
    "url": "https://github.com/cyberdudeuk/github-repos-asset-catalogue/releases/tag/v7.21.0"
-  },
-  {
-   "project": "The Knowledge Web",
-   "release": "3.8.0",
-   "date": "2026-11-15",
-   "url": "https://github.com/cyberdudeuk/knowledge-web/releases/tag/v3.8.0"
-  },
-  {
-   "project": "Plainspoken",
-   "release": "2.6.0",
-   "date": "2026-11-15",
-   "url": "https://github.com/cyberdudeuk/plainspoken/releases/tag/v2.6.0"
   }
  ],
  "last_change": {
-  "project": "Public Good Works launchpad",
-  "date": "2026-11-19"
+  "project": "AI Capability Governance and Implementation",
+  "date": "2026-11-20"
  }
 }
