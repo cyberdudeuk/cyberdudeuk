@@ -1,11 +1,17 @@
 {
- "generated": "2026-11-20",
+ "generated": "2026-11-21",
  "releases": [
   {
    "project": "DCAT-AP-UK",
    "release": "v1.3.0-rc.1",
    "date": "2026-11-20",
    "url": "https://github.com/cyberdudeuk/dcat-ap-uk/releases/tag/v1.3.0-rc.1"
+  },
+  {
+   "project": "Data Asset Management capability playbooks",
+   "release": "1.16.0: everything you need to adopt the DAM Policy",
+   "date": "2026-11-20",
+   "url": "https://github.com/cyberdudeuk/dam-capability-playbooks/releases/tag/v1.16.0"
   },
   {
    "project": "NDL PubSec MCP",
@@ -30,12 +36,6 @@
    "release": "2.15.0",
    "date": "2026-11-15",
    "url": "https://github.com/cyberdudeuk/dq-commons/releases/tag/v2.15.0"
-  },
-  {
-   "project": "GitHub Repos Asset Catalogue",
-   "release": "v7.21.0",
-   "date": "2026-11-15",
-   "url": "https://github.com/cyberdudeuk/github-repos-asset-catalogue/releases/tag/v7.21.0"
   }
  ],
  "last_change": {
