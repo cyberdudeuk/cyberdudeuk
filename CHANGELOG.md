@@ -1,6 +1,14 @@
 # Changelog
 
 
+
+## 22 November 2026: every project has a current preview card
+
+- DAM Policy Explorer had no gallery card (P-08). `tools/previews.py` now makes the cards from the launchpad's data, in
+  the same design as before, and the daily refresh runs it, so a newly listed project gets its card the next morning.
+- Hand-made cards had gone stale: Data Quality Commons still showed its old licence (P-09). Each card's inputs are now
+  fingerprinted in `assets/previews/fingerprints.json`, and a card is remade when they change. All twelve were remade.
+- OpenGovernment UK now has its own area colour.
 ## 19 November 2026: a live front page
 
 - **Start here** names one flagship to try first: the GitHub Repos Asset Catalogue (set by FLAGSHIP in
