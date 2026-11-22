@@ -34,7 +34,7 @@ DESIGN = '1'  # bump to remake every card after changing page()
 ID = re.compile(r'^[a-z0-9][a-z0-9.-]{0,80}$')
 AMBER = '#e5a53b'
 # Each area's colour, sampled from the cards made by hand before this tool existed, so new cards match them.
-PALETTE = {'ai': '#4cd3b5', 'standards': '#8eb4ff', 'data': '#f4b45a', 'government': '#f59fc0', 'reuse': '#69d896',
+PALETTE = {'ai': '#4cd3b5', 'standards': '#8eb4ff', 'data': '#f4b45a', 'government': '#f59fc0', 'business': '#e1dc76', 'reuse': '#69d896',
            'knowledge': '#cca5f4', 'skills': '#ff9d84', 'community': '#f7c44f', 'youth': '#7ad6ff', 'experiments': '#bbea82'}
 MARK = ('<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#162a3a"/>'
         '<path d="M13 14L27 14L20 27Z" fill="none" stroke="#3fc6b1" stroke-width="2"/><circle cx="13" cy="14" r="3.4" fill="#3fc6b1"/>'
