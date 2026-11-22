@@ -11,6 +11,10 @@ P-05: the colophon said "updated 2026-11-15" (the register's own date) while pro
 P-06: the profile linked neither the notes nor the project board, so visitors could not see what was new or under way;
       LinkedIn and the Zenodo community were missing from the badges too (19 Nov 2026).
 P-07: release titles repeat the project name ("Plainspoken 2.6.0"), which read twice in "What's new" (19 Nov 2026).
+P-08: DAM Policy Explorer and OpenGovernment UK were listed with no preview card, because every card was made by hand;
+      tools/previews.py now makes them and the refresh routine runs it (22 Nov 2026).
+P-09: hand-made cards went stale (Data Quality Commons still said "OGL v3.0 content"); each card's inputs are fingerprinted
+      and a card is remade when they change (22 Nov 2026).
 """
 import json
 import re
@@ -54,9 +58,11 @@ class Checks(unittest.TestCase):
         run = wf.split('Commit only if it changed')[1]
         for step in ('ruff check .', 'unittest discover', '--check', 'AUTOMATION" = "off"'):
             self.assertLess(run.index(step), run.index('git -c user.name'), f'{step} must run before the commit')
-        self.assertIn('-- README.md data/activity.json', run)  # commits these two files and nothing else
+        self.assertIn('-- README.md data/activity.json assets/previews', run)  # commits these and nothing else
         self.assertIn('contents: write   # commit README.md', wf)
+        self.assertLess(run.index('previews.py "$RUNNER_TEMP/launchpad" --check'), run.index('git -c user.name'))  # P-08
         self.assertLess(wf.index('fetch_activity.py'), wf.index('build_readme.py "$RUNNER_TEMP/launchpad"\n'))
+        self.assertLess(wf.index('previews.py "$RUNNER_TEMP/launchpad"\n'), wf.index('build_readme.py "$RUNNER_TEMP/launchpad"\n'))
 
     def test_new_project_without_a_preview_gets_no_broken_image(self):
         # P-03: a project merged into the launchpad before its preview image exists must not show a broken image.
@@ -72,6 +78,56 @@ class Checks(unittest.TestCase):
     def test_code_scanning_and_security_policy_exist(self):
         self.assertTrue((WF / 'codeql.yml').exists())
         self.assertIn('Report a vulnerability', (ROOT / 'SECURITY.md').read_text(encoding='utf-8'))
+
+
+class Previews(unittest.TestCase):
+    """P-08 and P-09: every listed project gets a current preview card, made safely from the data."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import previews
+        cls.pv = previews
+        cls.p = {'id': 'demo', 'name': 'Demo <b>tool</b>', 'summary': 'One. Two.', 'status': 'Prototype', 'licence': 'MIT',
+                 'site': 'https://cyberdudeuk.github.io/demo/', 'repo': 'https://github.com/cyberdudeuk/demo', 'category': 'ai'}
+        cls.cat = {'label': 'AI governance', 'icon': 'shield'}
+
+    def test_text_from_the_data_is_escaped(self):
+        page = self.pv.page(self.p, self.cat, 'Prototype', {'shield': '<path d="M1 1"/>'}, 'sg.woff2')
+        self.assertIn('Demo &lt;b&gt;tool&lt;/b&gt;', page)
+        self.assertNotIn('<b>tool</b>', page)
+
+    def test_summary_keeps_whole_sentences_and_always_the_first(self):
+        self.assertEqual(self.pv.summary('Short. ' + 'x' * 300 + '.'), 'Short.')
+        self.assertEqual(self.pv.summary('A' * 300 + '.'), 'A' * 300 + '.')
+
+    def test_a_card_is_stale_when_missing_or_when_its_project_changes(self):
+        import tempfile
+        old_out, old_prints = self.pv.OUT, self.pv.PRINTS
+        with tempfile.TemporaryDirectory() as t:
+            self.pv.OUT, self.pv.PRINTS = Path(t), Path(t) / 'fingerprints.json'
+            try:
+                cats = {'ai': self.cat}
+                self.assertEqual(self.pv.stale([self.p], cats), ['demo'])  # no card yet
+                (Path(t) / 'demo.jpg').write_bytes(b'x')
+                self.pv.PRINTS.write_text(json.dumps({'demo': self.pv.fingerprint(self.p, self.cat)}), encoding='utf-8')
+                self.assertEqual(self.pv.stale([self.p], cats), [])  # current
+                self.assertEqual(self.pv.stale([dict(self.p, licence='CC BY 4.0')], cats), ['demo'])  # P-09: data changed
+            finally:
+                self.pv.OUT, self.pv.PRINTS = old_out, old_prints
+
+    def test_unsafe_ids_are_refused(self):
+        self.assertIsNone(self.pv.ID.match('../evil'))
+        self.assertIsNone(self.pv.ID.match('a/b'))
+        self.assertIsNotNone(self.pv.ID.match('dam-policy-explorer'))
+
+    def test_every_committed_card_is_current_with_the_launchpad(self):
+        site = ROOT.parent / 'cyberdudeuk.github.io'
+        if not (site / 'data' / 'projects.json').exists():
+            self.skipTest('launchpad clone not alongside; the refresh routine runs previews.py --check against it')
+        d = json.loads((site / 'data' / 'projects.json').read_text(encoding='utf-8'))
+        self.assertEqual(self.pv.stale(d['projects'], {c['id']: c for c in d['categories']}), [])
+        self.assertTrue({c['id'] for c in d['categories']} <= set(self.pv.PALETTE), 'every area has a colour')
 
 
 if __name__ == '__main__':
