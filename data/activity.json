@@ -2,6 +2,12 @@
  "generated": "2026-11-24",
  "releases": [
   {
+   "project": "Legacy Technology Observatory",
+   "release": "3.2.1",
+   "date": "2026-11-24",
+   "url": "https://github.com/cyberdudeuk/legacy-technology-observatory/releases/tag/v3.2.1"
+  },
+  {
    "project": "DCAT-AP-UK",
    "release": "v1.3.0-rc.1",
    "date": "2026-11-20",
@@ -30,16 +36,10 @@
    "release": "3.1.0",
    "date": "2026-11-15",
    "url": "https://github.com/cyberdudeuk/ai-capability-governance/releases/tag/v3.1.0"
-  },
-  {
-   "project": "Public Sector Data Quality Commons",
-   "release": "2.15.0",
-   "date": "2026-11-15",
-   "url": "https://github.com/cyberdudeuk/dq-commons/releases/tag/v2.15.0"
   }
  ],
  "last_change": {
-  "project": "OpenGovernment UK",
+  "project": "AI Capability Governance and Implementation",
   "date": "2026-11-24"
  }
 }
