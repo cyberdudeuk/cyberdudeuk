@@ -52,6 +52,15 @@ class Checks(unittest.TestCase):
         self.assertTrue({"no_emails", "search_finds", "visual_qa"} <= checks.known_checks())
 
 
+class Build(unittest.TestCase):
+    def test_qr_svg_is_normalised(self):
+        """D8: the QR code must serialise the same with or without lxml, or CI reports a stale site."""
+        import build  # noqa: E402
+        svg = build.qr_svg("https://example.org/")
+        self.assertNotIn(" />", svg)
+        self.assertTrue(svg.startswith("<svg"))
+
+
 class Harvest(unittest.TestCase):
     def setUp(self):
         self.doc = yaml.safe_load((FIX / "publiccode.yml").read_text(encoding="utf-8"))

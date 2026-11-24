@@ -57,6 +57,7 @@ def qr_svg(text: str) -> str:
     img = qrcode.make(text, image_factory=qrcode.image.svg.SvgPathImage, box_size=10, border=2)
     svg = img.to_string(encoding="unicode")
     svg = re.sub(r"<\?xml[^>]*\?>", "", svg)
+    svg = re.sub(r"\s*/>", "/>", svg)  # D8: qrcode writes " />" with lxml and "/>" without; normalise so builds match everywhere
     return svg.replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
 
 
@@ -114,6 +115,12 @@ def main() -> int:
         stale += [str(p.relative_to(ROOT)) for p, t in written.items() if not p.exists() or p.read_text(encoding="utf-8") != t]
         if not out.exists() or out.read_text(encoding="utf-8") != page or stale:
             print("site/ is out of date: run python tools/build.py and commit the result")
+            if out.exists() and out.read_text(encoding="utf-8") != page:
+                old = out.read_text(encoding="utf-8")
+                i = next((k for k in range(min(len(old), len(page))) if old[k] != page[k]), min(len(old), len(page)))
+                print(f"  site/index.html first differs at character {i}: {old[max(0, i - 60):i + 60]!r}")
+            for f in stale:
+                print(f"  stale: {f}")
             return 1
         print("site/ is up to date")
         return 0

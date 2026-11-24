@@ -27,7 +27,7 @@ PINNED = re.compile(r"uses:\s+([\w.-]+/[\w./-]+)@([0-9a-f]{40})\b")
 USES = re.compile(r"uses:\s+(\S+)")
 IN_PAGE = {"search_finds", "ask_grounded", "drawer_toggle", "nav_folds"}
 VISUAL = {"visual_qa", "filters_work", "users_declared_only", "heading_visible", "toggle_label_visible"}
-TESTS = {"harvest_parses", "harvest_strips_contacts"}
+TESTS = {"harvest_parses", "harvest_strips_contacts", "qr_normalised"}
 
 CHECK_REASONS = {
     "no_emails": "D2: prototype pages showed email addresses",

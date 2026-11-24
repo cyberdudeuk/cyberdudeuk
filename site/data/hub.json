@@ -965,6 +965,17 @@
       [
         "visual_qa"
       ]
+    ],
+    [
+      "D8",
+      "2026-11-24",
+      "The first sync failed: CI said the built site was out of date although it had just been built",
+      "The QR code library writes '/>' or ' />' depending on whether lxml is installed, so the build differed between machines",
+      "Normalise the QR code markup; a unit test checks it, and the build check now reports where the page differs",
+      [
+        "site_fresh",
+        "qr_normalised"
+      ]
     ]
   ]
 }
