@@ -80,4 +80,4 @@ Projects from the cyberdudeuk GitHub account, most of them about data and AI in 
 
 <p align="center"><a href="https://cyberdudeuk.github.io/"><img src="assets/qr.svg" alt="QR code for https://cyberdudeuk.github.io/" width="96"></a>
 &nbsp;&nbsp;<a href="https://cyberdudeuk.github.io/"><img src="assets/barcode.svg" alt="Barcode encoding https://cyberdudeuk.github.io/" height="72"></a><br>
-<sub>Public Good Works · https://cyberdudeuk.github.io/ · last change 2026-11-26 · register v1.4.0</sub></p>
+<sub>Public Good Works · https://cyberdudeuk.github.io/ · last change 2026-11-27 · register v1.4.0</sub></p>
